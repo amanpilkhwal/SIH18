@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Drought Prediction</title>
+	<script LANGUAGE="JavaScript" type="text/javascript">
+function display() {
+  
+  tlocation=document.form1.browser1.value;
+  tmonth= document.form1.month.value ;
+  message=httpGet("http://localhost:8000/api/weather/?location="+tlocation+"&month="+tmonth)
+  triggerJS(message);
+}
+function httpGet(theUrl)
+{
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
+    xmlHttp.send( null );
+    return xmlHttp.responseText;
+}
+</script>
+<script type="application/x-javascript">
+		addEventListener("load", function () {
+			setTimeout(hideURLbar, 0);
+		}, false);
+
+		function hideURLbar() {
+			window.scrollTo(0, 1);
+		}
+	</script>
+	<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!-- bootstrap-css -->
+<link href="footer_css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+<link rel="stylesheet" href="footer_css/style.css" type="text/css" media="all" />
+<link rel="stylesheet" href="footer_css/lightbox.css">  
+<script src="footer_js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript">
+	jQuery(document).ready(function($) {
+		$(".scroll").click(function(event){		
+			event.preventDefault();
+			$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+		});
+	});
+</script> 
+	<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+	  <link rel="stylesheet" href="animate.css">
+	<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="css/prettyPhoto.css" rel="stylesheet" type="text/css" />
+	<link href="css/fontawesome-all.css" rel="stylesheet">
+	<link href="css/font-awesome.css" rel="stylesheet">
+	</head>
+	<body onload="myFunction()" >
+	<div class="top_header" id="home">
+		<!-- Fixed navbar -->
+		<nav class="navbar navbar-default navbar-fixed-top">
+			<div class="nav_top_fx_w3ls_agileinfo">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+					    aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+					<div class="logo-w3layouts-agileits">
+						<h1> <a class="navbar-brand" href="index.html"><i class="fa fa-clone" aria-hidden="true"></i> Drought <span class="desc">Prediction Center</span></a></h1>
+					</div>
+				</div>
+				<div id="navbar" class="navbar-collapse collapse">
+					<div class="nav_right_top">
+						<ul class="nav navbar-nav navbar-right">
+							<li><a href="faq.html">FAQs</a></li>
+						</ul>
+						<ul class="nav navbar-nav">
+							<li class="active"><a href="index.html">Home</a></li>
+							<li ><a href="information.html">Information</a></li>
+							<li><a href="wildlife.html">Wildlife</a></li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<!--/.nav-collapse -->
+			</div>
+		</nav>
+	</div>
+	<div id="loader"></div>
+  <div class="animated zoomIn">
+  <div class="header-w3l">
+ <div style="width:850px;">
+<a href="http://free-website-translation.com/" id="ftwtranslation_button" hreflang="en" title="" style="border:0px;"><img src="http://free-website-translation.com/img/fwt_button_en.gif" id="ftwtranslation_image" alt="Free Website Translator" style="border:0;"/></a> <script type="text/javascript" src="http://free-website-translation.com/scripts/fwt.js" /></script>
+        </div>
+	</div>
+  </div><br>
+  <div class="main-content-agile">
+  <div class="animated fadeInRight">
+    <div class="sub-main-w3">
+      <img src="images/tree design.jpg" alt="" /><br><br>
+      <form action="prediction.html" method="post" name="form1">
+      	<div class="pom-agile">
+      	<input list="browsers" name="browser" class="user" placeholder="Select state" type="text">
+  <datalist id="browsers">
+    <option value="Himachal Pradesh">
+  </datalist>
+   </div>
+        <div class="pom-agile" >          
+          <input list="browser" name="browser1" placeholder="Enter your area" name="area" class="user" type="text" required="">
+		 <datalist id="browser" style="overflow: scroll;">
+    	  <option value="Chamba"></option>
+    	  <option value="Hamirpur" disabled >Hamirpur</option>
+    	  <option value="Kangra"></option>
+    	  <option value="Kinnaur"></option>
+    	  <option value="Kullu"></option>
+    	  <option value="Lahul and Spiti"></option>
+    	  <option value="Mandi"></option>
+    	  <option value="Shimla"></option>
+    	  <option value="Sirmaur"></option>
+    	  <option value="Solan"></option>
+    	  <option value="Una" disabled></option>
+			</datalist>
+        </div>
+          <div class="pom-agile" >          
+          <input list="browser2" name="browser2" placeholder="Enter protected area" name="protected" class="user" type="text" required="">
+		 <datalist id="browser2" style="overflow: scroll;">
+    	  <option value="Great Himalayan National Park"></option>
+    	  <option value="Kais"></option>
+    	  <option value="Kanawar"></option>
+    	  <option value="Khokhan"></option>
+    	  <option value="Manali"></option>
+    	  <option value="Sainj"></option>
+    	  <option value="Tirthan"></option>
+    	  <option value="Pin Valley National Park"></option>
+    	  <option value="Chandra Tal"></option>
+    	  <option value="Kibber"></option>
+    	  <option value="Bandli"></option>
+    	  <option value="Nargu"></option>
+    	  <option value="Shikari Devi"></option>
+    	  <option value="Chail"></option>
+    	  <option value="Majathal"></option>
+    	  <option value="Shilli Resere"></option>
+    	  <option value="Darlaghat Reserve"></option>
+    	  <option value="Churdhar"></option>
+    	  <option value="Renuka"></option>
+    	  <option value="Simbalbara"></option>
+    	  <option value="Daranghati"></option>
+    	  <option value="Talra"></option>
+    	  <option value="Dhauladhar"></option>
+    	  <option value="Pong Dam Lake"></option>
+    	  <option value="Gamgul-siyabehi"></option>
+    	  <option value="Kalatop-khajjiar"></option>
+    	  <option value="Kugti"></option>
+    	  <option value="Sechu-Tuan Nalla"></option>
+    	  <option value="Tundah"></option>
+    	  <option value="Lipa Asrang"></option>
+    	  <option value="Rakchham-Chitkul"></option>
+    	  <option value="Rupi-Bhaba"></option>
+		</datalist>
+        </div>
+        <div class="pom-agile">
+		 <input list="month" placeholder="Enter month" name="month" class="user" type="text" required="">
+          <datalist id="month" style="overflow: scroll;">
+    	  <option value="April"></option>
+    	  <option value="May"></option>
+    	  <option value="June"></option>
+    	  <option value="July"></option>
+    	  <option value="August"></option>
+    	  <option value="September"></option>
+    	  <option value="October"></option>
+    	  <option value="November"></option>
+    	  <option value="December"></option>
+  		</datalist>
+        </div>
+        <div class="pom-agile">
+		<input  name="year" class="user" type="text" value="2018" readonly>
+		 </div>
+		 <div class="right-w3l">
+          <input type="submit" name="submit" value="Search" onClick="display();">
+        </div>
+      </form>
+  </div>
+        </div>
+  </div><br>
+  	<!-- services -->
+	<div class="services"id="services">
+		<div class="container">
+			<div class="agileits-heading">
+				<h3>Our Services</h3>
+			</div>
+			<div class="wthree-services-grids">
+				<div class="col-sm-3 wthree-services">
+					<div class="wthree-services-grid">
+						<div class="wthree-services-info">
+							<i class="fas fa-cloud" aria-hidden="true" style="font-size:50px;"></i>
+							<h4>Factors</h4>
+							<div class="w3ls-border"> </div>
+						</div>
+						<div class="wthree-services-captn">
+							<h4><b>Factors</b></h4>
+							<p>Change is never by mere chance; it is the result of forces working together. Therefore certain factors need to be taken care of.</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-3 wthree-services">
+					<div class="wthree-services-grid">
+						<div class="wthree-services-info">
+							<i class="fas fa-tachometer-alt" style="font-size:50px;"></i>
+							<h4>Prediction</h4>
+							<div class="w3ls-border"> </div>
+						</div>
+						<div class="wthree-services-captn">
+							<h4><b>Prediction</b></h4>
+							<p>Some things are so unexpected that no one is prepared for them and hence predicting the conditions beforehand is required.</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-3 wthree-services">
+					<div class="wthree-services-grid">
+						<div class="wthree-services-info">
+							<i class="fas fa-search" style="font-size:50px;"></i>
+							<h4>Mitigation</h4>
+							<div class="w3ls-border"> </div>
+						</div>
+						<div class="wthree-services-captn">
+							<h4><b>Mitigation</b></h4>
+							<p>After every storm the sun will smile; for every problem there is a solution. Therefore these are the solutions  to prevent drought.</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-3 wthree-services">
+					<div class="wthree-services-grid">
+						<div class="wthree-services-info">
+							<i class="fas fa-paw" style="font-size:50px;"></i>
+							<h4>Wildlife</h4>
+							<div class="w3ls-border"> </div>
+						</div>
+						<div class="wthree-services-captn">
+							<h4><b>Wildlife</b></h4>
+							<p>The greatness of a nation can be judged by the way its animals are treated. Hence we owe them a duty of care and protection.</p>
+						</div>
+					</div>
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+		</div>
+	</div>
+ <script type="text/javascript" src="js/jquery-2.2.3.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap.js"></script>
+	<script>
+		$('ul.dropdown-menu li').hover(function () {
+			$(this).find('.dropdown-menu').stop(true, true).delay(200).fadeIn(500);
+		}, function () {
+			$(this).find('.dropdown-menu').stop(true, true).delay(200).fadeOut(500);
+		});
+	</script>
+	<script type="text/javascript" src="js/easing.js"></script>
+	<script type="text/javascript" src="js/move-top.js"></script>
+	<script type="text/javascript">
+		jQuery(document).ready(function ($) {
+			$(".scroll, .navbar li a, .footer li a").click(function (event) {
+				$('html,body').animate({
+					scrollTop: $(this.hash).offset().top
+				}, 1000);
+			});
+		});
+	</script>
+	<script type="text/javascript">
+		$(document).ready(function () {
+
+			$().UItoTop({
+				easingType: 'easeOutQuart'
+			});
+
+		});
+	</script>
+	<script type="text/javascript" src="js/jquery-1.7.2.js"></script>
+	<script src="js/jquery.quicksand.js" type="text/javascript"></script>
+	<script src="js/script.js" type="text/javascript"></script>
+	<script src="js/jquery.prettyPhoto.js" type="text/javascript"></script>
+<script>
+var myVar;
+
+function myFunction() {
+    myVar = setTimeout(showPage);
+}
+
+function showPage() {
+  document.getElementById("loader").style.display = "none";
+  document.getElementById("myDiv").style.display = "block";
+}
+</script>
+
+<script>
+        function triggerJS(response){
+        var queryString = "data" + response;
+        localStorage.setItem('itemKey', response);
+        location.assign("prediction.html");
+        /*
+        location.assign("New_WebSite_Url");
+        //Use assign() instead of replace if you want to have the first page in the history (i.e if you want the user to be able to navigate back when New_WebSite_Url is loaded)
+        */
+        }
+    </script>
+</body>
+</html>

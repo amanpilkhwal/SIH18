@@ -1,0 +1,912 @@
+	<!DOCTYPE html>
+	<html lang="en">
+	<!-- Head -->
+	<head>
+	<style type="text/css">
+	#map {
+  height: 100%;
+}
+.button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 26px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+</style>
+		<script type="application/x-javascript">
+		addEventListener("load", function () {
+			setTimeout(hideURLbar, 0);
+		}, false);
+
+		function hideURLbar() {
+			window.scrollTo(0, 1);
+		}
+	</script>
+	<!--//footer -->
+	<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+		<!-- one -->
+		<script type="text/javascript">
+
+var canvas ;
+var context ;
+var Val_max;
+var Val_min;
+var sections;
+var xScale;
+var yScale;
+		// Values for the Data Plot, they can also be obtained from a external file
+var Rainfall =  [100, 102, 87,100,85,56,21,78,96,15,0,26];
+//var Cloud_cover =  [100, 10, 70,80,58,56,62,77,86,58,35,26];
+//var temperature =  [100, 102, 87,100,85,56,21,78,96,15,66,84];
+function inRain(Rainfall1,month) 
+{
+		// set these values for your data 
+	sections = 12;
+	Val_max = 500;
+	Val_min = -40;
+	var stepSize = 50;
+	var columnSize = 50;
+	var rowSize = 50;
+	var margin = 10;
+	var xAxis = ["","Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+	var start=4+month
+	var newxAxis=new Array();
+	newxAxis[0]="";
+	var c=0;
+	for(i=start;i<13+start;i++)
+	{
+		if(c<=12)
+		{
+            if(i<=12)
+			newxAxis[i-start+1]=xAxis[i];
+		if(i>12)
+			newxAxis[i-start+1]=xAxis[i-12];
+
+	}
+    else
+		break;
+	c++;
+	 }
+	 xAxis=newxAxis
+		//
+	canvas = document.getElementById("canvas");
+	context = canvas.getContext("2d");
+	context.fillStyle = "#0099ff"
+	context.font = "20 pt Verdana"
+	
+	yScale = (canvas.height - columnSize - margin) / (Val_max - Val_min);
+	xScale = (canvas.width - rowSize) / sections;
+	
+	context.strokeStyle="#009933"; // color of grid lines
+	context.beginPath();
+		// print Parameters on X axis, and grid lines on the graph
+	for (i=1;i<=sections;i++) {
+		var x = i * xScale;
+		context.fillText(xAxis[i], x,columnSize - margin);
+		context.moveTo(x, columnSize);
+		context.lineTo(x, canvas.height - margin);
+	}
+		// print row header and draw horizontal grid lines
+	var count =  0;
+	for (scale=Val_max;scale>=Val_min;scale = scale - stepSize) {
+		var y = columnSize + (yScale * count * stepSize); 
+		context.fillText(scale, margin,y + margin);
+		context.moveTo(rowSize,y)
+		context.lineTo(canvas.width,y)
+		count++;
+	}
+	context.stroke();
+	
+	context.translate(rowSize,canvas.height + Val_min * yScale);
+	context.scale(1,-1 * yScale);
+	
+		// Color of each dataplot items
+		
+	context.strokeStyle="#FF0066";
+	plotData(Rainfall1);
+	//context.strokeStyle="#FF0015";
+	//plotData(Cloud_cover);
+	//context.strokeStyle="#FF0096";
+	//plotData(temperature);
+	
+}
+
+function plotData(dataSet) {
+	context.beginPath();
+	context.moveTo(0, dataSet[0]);
+	for (i=1;i<sections;i++) {
+		context.lineTo(i * xScale, dataSet[i]);
+	}
+	context.stroke();
+}
+</script>
+<!-- two -->
+<script type="text/javascript">
+	var canvas1 ;
+var context ;
+var Val_max;
+var Val_min;
+var sections;
+var xScale;
+var yScale;
+		// Values for the Data Plot, they can also be obtained from a external file
+var Rainfall =  [100, 10, 87,100,85,56,21,78,96,15,0,26];
+function inRain1(Rainfall,month) 
+{
+		// set these values for your data 
+	sections = 12;
+	Val_max = 60;
+	Val_min = -40;
+	var stepSize = 5;
+	var columnSize = 50;
+	var rowSize = 50;
+	var margin = 10;
+	var xAxis = [" ", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+		//
+    
+    var start=4+month;
+	var newxAxis=new Array();
+	newxAxis[0]="";
+	var c=0;
+	for(i=start;i<13+start;i++)
+	{
+		if(c<=12)
+		{
+            if(i<=12)
+			newxAxis[i-start+1]=xAxis[i];
+		if(i>12)
+			newxAxis[i-start+1]=xAxis[i-12];
+
+	}
+    else
+		break;
+	c++;
+	 }
+	 xAxis=newxAxis;
+
+	canvas1 = document.getElementById("canvas1");
+	context = canvas1.getContext("2d");
+	context.fillStyle = "#0099ff"
+	context.font = "20 pt Verdana"
+	
+	yScale = (canvas1.height - columnSize - margin) / (Val_max - Val_min);
+	xScale = (canvas1.width - rowSize) / sections;
+	
+	context.strokeStyle="#009933"; // color of grid lines
+	context.beginPath();
+		// print Parameters on X axis, and grid lines on the graph
+	for (i=1;i<=sections;i++) {
+		var x = i * xScale;
+		context.fillText(xAxis[i], x,columnSize - margin);
+		context.moveTo(x, columnSize);
+		context.lineTo(x, canvas1.height - margin);
+	}
+		// print row header and draw horizontal grid lines
+	var count =  0;
+	for (scale=Val_max;scale>=Val_min;scale = scale - stepSize) {
+		var y = columnSize + (yScale * count * stepSize); 
+		context.fillText(scale, margin,y + margin);
+		context.moveTo(rowSize,y)
+		context.lineTo(canvas1.width,y)
+		count++;
+	}
+	context.stroke();
+	
+	context.translate(rowSize,canvas1.height + Val_min * yScale);
+	context.scale(1,-1 * yScale);
+	
+		// Color of each dataplot items
+		
+	context.strokeStyle="#FF0066";
+	plotData1(Rainfall);
+	//context.strokeStyle="#FF0015";
+	//plotData(Cloud_cover);
+	//context.strokeStyle="#FF0096";
+	//plotData(temperature);
+	
+}
+
+function plotData1(dataSet) {
+	context.beginPath();
+	context.moveTo(0, dataSet[0]);
+	for (i=1;i<sections;i++) {
+		context.lineTo(i * xScale, dataSet[i]);
+	}
+	context.stroke();
+}
+
+</script>
+<!-- three -->
+<script type="text/javascript">
+	var canvas2 ;
+var context ;
+var Val_max;
+var Val_min;
+var sections;
+var xScale;
+var yScale;
+		// Values for the Data Plot, they can also be obtained from a external file
+var Rainfall =  [100, 10, 87,100,85,56,21,78,96,15,,26];
+function inRain2(Rainfall,month) 
+{
+		// set these values for your data 
+	sections = 12;
+	Val_max = 100;
+	Val_min = -10;
+	var stepSize = 5;
+	var columnSize = 50;
+	var rowSize = 50;
+	var margin = 10;
+	var xAxis = [" ", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"] 
+	
+	var start=4+month
+	var newxAxis=new Array();
+	newxAxis[0]="";
+	var c=0;
+	for(i=start;i<13+start;i++)
+	{
+		if(c<=12)
+		{
+            if(i<=12)
+			newxAxis[i-start+1]=xAxis[i];
+		if(i>12)
+			newxAxis[i-start+1]=xAxis[i-12];
+
+	}
+    else
+		break;
+	c++;
+	 }
+	 xAxis=newxAxis;
+		
+	canvas2 = document.getElementById("canvas2");
+	context = canvas2.getContext("2d");
+	context.fillStyle = "#0099ff"
+	context.font = "20 pt Verdana"
+	
+	yScale = (canvas2.height - columnSize - margin) / (Val_max - Val_min);
+	xScale = (canvas2.width - rowSize) / sections;
+	
+	context.strokeStyle="#009933"; // color of grid lines
+	context.beginPath();
+		// print Parameters on X axis, and grid lines on the graph
+	for (i=1;i<=sections;i++) {
+		var x = i * xScale;
+		context.fillText(xAxis[i], x,columnSize - margin);
+		context.moveTo(x, columnSize);
+		context.lineTo(x, canvas2.height - margin);
+	}
+		// print row header and draw horizontal grid lines
+	var count =  0;
+	for (scale=Val_max;scale>=Val_min;scale = scale - stepSize) {
+		var y = columnSize + (yScale * count * stepSize); 
+		context.fillText(scale, margin,y + margin);
+		context.moveTo(rowSize,y)
+		context.lineTo(canvas2.width,y)
+		count++;
+	}
+	context.stroke();
+	
+	context.translate(rowSize,canvas2.height + Val_min * yScale);
+	context.scale(1,-1 * yScale);
+	
+		// Color of each dataplot items
+		
+	context.strokeStyle="#FF0066";
+	plotData2(Rainfall);
+	//context.strokeStyle="#FF0015";
+	//plotData(Cloud_cover);
+	//context.strokeStyle="#FF0096";
+	//plotData(temperature);
+	
+}
+
+function plotData2(dataSet) {
+	context.beginPath();
+	context.moveTo(0, dataSet[0]);
+	for (i=1;i<sections;i++) {
+		context.lineTo(i * xScale, dataSet[i]);
+	}
+	context.stroke();
+}
+</script>
+<!-- four -->
+<script type="text/javascript">
+	var canvas3 ;
+var context ;
+var Val_max;
+var Val_min;
+var sections;
+var xScale;
+var yScale;
+		// Values for the Data Plot, they can also be obtained from a external file
+var Rainfall =  [100, 10, 87,100,85,56,21,78,96,15,,26];
+function inRain3(Rainfall,month) 
+{
+		// set these values for your data 
+	sections = 12;
+	Val_max = 10;
+	Val_min = -10;
+	var stepSize = 2;
+	var columnSize = 50;
+	var rowSize = 50;
+	var margin = 10;
+	var xAxis = [" ", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"] 
+    var start=4+month
+	var newxAxis=new Array();
+	newxAxis[0]="";
+	var c=0;
+	for(i=start;i<13+start;i++)
+	{
+		if(c<=12)
+		{
+            if(i<=12)
+			newxAxis[i-start+1]=xAxis[i];
+		if(i>12)
+			newxAxis[i-start+1]=xAxis[i-12];
+
+	}
+    else
+		break;
+	c++;
+	 }
+	 xAxis=newxAxis;
+		
+	canvas3 = document.getElementById("canvas3");
+	context = canvas3.getContext("2d");
+	context.fillStyle = "#0099ff"
+	context.font = "20 pt Verdana"
+	
+	yScale = (canvas3.height - columnSize - margin) / (Val_max - Val_min);
+	xScale = (canvas3.width - rowSize) / sections;
+	
+	context.strokeStyle="#009933"; // color of grid lines
+	context.beginPath();
+		// print Parameters on X axis, and grid lines on the graph
+	for (i=1;i<=sections;i++) {
+		var x = i * xScale;
+		context.fillText(xAxis[i], x,columnSize - margin);
+		context.moveTo(x, columnSize);
+		context.lineTo(x, canvas3.height - margin);
+	}
+		// print row header and draw horizontal grid lines
+	var count =  0;
+	for (scale=Val_max;scale>=Val_min;scale = scale - stepSize) {
+		var y = columnSize + (yScale * count * stepSize); 
+		context.fillText(scale, margin,y + margin);
+		context.moveTo(rowSize,y)
+		context.lineTo(canvas3.width,y)
+		count++;
+	}
+	context.stroke();
+	
+	context.translate(rowSize,canvas3.height + Val_min * yScale);
+	context.scale(1,-1 * yScale);
+	
+		// Color of each dataplot items
+		
+	context.strokeStyle="#FF0066";
+	plotData3(Rainfall);
+	//context.strokeStyle="#FF0015";
+	//plotData(Cloud_cover);
+	//context.strokeStyle="#FF0096";
+	//plotData(temperature);
+	
+}
+
+function plotData3(dataSet) {
+	context.beginPath();
+	context.moveTo(0, dataSet[0]);
+	for (i=1;i<sections;i++) {
+		context.lineTo(i * xScale, dataSet[i]);
+	}
+	context.stroke();
+}
+</script>
+<!-- five -->
+<script type="text/javascript">
+	var canvas4 ;
+var context ;
+var Val_max;
+var Val_min;
+var sections;
+var xScale;
+var yScale;
+		// Values for the Data Plot, they can also be obtained from a external file
+var Rainfall =  [100, 10, 87,100,85,56,21,78,96,15,,26];
+function inRain4() 
+{
+		// set these values for your data 
+	sections = 12;
+	Val_max = 130;
+	Val_min = -40;
+	var stepSize = 10;
+	var columnSize = 50;
+	var rowSize = 50;
+	var margin = 10;
+	var xAxis = [" ", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"] 
+		//
+		
+	canvas4 = document.getElementById("canvas4");
+	context = canvas4.getContext("2d");
+	context.fillStyle = "#0099ff"
+	context.font = "20 pt Verdana"
+	
+	yScale = (canvas4.height - columnSize - margin) / (Val_max - Val_min);
+	xScale = (canvas4.width - rowSize) / sections;
+	
+	context.strokeStyle="#009933"; // color of grid lines
+	context.beginPath();
+		// print Parameters on X axis, and grid lines on the graph
+	for (i=1;i<=sections;i++) {
+		var x = i * xScale;
+		context.fillText(xAxis[i], x,columnSize - margin);
+		context.moveTo(x, columnSize);
+		context.lineTo(x, canvas4.height - margin);
+	}
+		// print row header and draw horizontal grid lines
+	var count =  0;
+	for (scale=Val_max;scale>=Val_min;scale = scale - stepSize) {
+		var y = columnSize + (yScale * count * stepSize); 
+		context.fillText(scale, margin,y + margin);
+		context.moveTo(rowSize,y)
+		context.lineTo(canvas4.width,y)
+		count++;
+	}
+	context.stroke();
+	
+	context.translate(rowSize,canvas4.height + Val_min * yScale);
+	context.scale(1,-1 * yScale);
+	
+		// Color of each dataplot items
+		
+	context.strokeStyle="#FF0066";
+	plotData4(Rainfall);
+	//context.strokeStyle="#FF0015";
+	//plotData(Cloud_cover);
+	//context.strokeStyle="#FF0096";
+	//plotData(temperature);
+	
+}
+
+function plotData4(dataSet) {
+	context.beginPath();
+	context.moveTo(0, dataSet[0]);
+	for (i=1;i<sections;i++) {
+		context.lineTo(i * xScale, dataSet[i]);
+	}
+	context.stroke();
+}
+</script>
+<!-- six -->
+<script type="text/javascript">
+	var canvas5 ;
+var context ;
+var Val_max;
+var Val_min;
+var sections;
+var xScale;
+var yScale;
+		// Values for the Data Plot, they can also be obtained from a external file
+var Rainfall =  [100, 10, 87,100,85,56,21,78,96,15,,26];
+function inRain5() 
+{
+		// set these values for your data 
+	sections = 12;
+	Val_max = 130;
+	Val_min = -40;
+	var stepSize = 10;
+	var columnSize = 50;
+	var rowSize = 50;
+	var margin = 10;
+	var xAxis = [" ", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"] 
+		//
+		
+	canvas5 = document.getElementById("canvas5");
+	context = canvas5.getContext("2d");
+	context.fillStyle = "#0099ff"
+	context.font = "20 pt Verdana"
+	
+	yScale = (canvas5.height - columnSize - margin) / (Val_max - Val_min);
+	xScale = (canvas5.width - rowSize) / sections;
+	
+	context.strokeStyle="#009933"; // color of grid lines
+	context.beginPath();
+		// print Parameters on X axis, and grid lines on the graph
+	for (i=1;i<=sections;i++) {
+		var x = i * xScale;
+		context.fillText(xAxis[i], x,columnSize - margin);
+		context.moveTo(x, columnSize);
+		context.lineTo(x, canvas5.height - margin);
+	}
+		// print row header and draw horizontal grid lines
+	var count =  0;
+	for (scale=Val_max;scale>=Val_min;scale = scale - stepSize) {
+		var y = columnSize + (yScale * count * stepSize); 
+		context.fillText(scale, margin,y + margin);
+		context.moveTo(rowSize,y)
+		context.lineTo(canvas5.width,y)
+		count++;
+	}
+	context.stroke();
+	
+	context.translate(rowSize,canvas5.height + Val_min * yScale);
+	context.scale(1,-1 * yScale);
+	
+		// Color of each dataplot items
+		
+	context.strokeStyle="#FF0066";
+	plotData5(Rainfall);
+	//context.strokeStyle="#FF0015";
+	//plotData(Cloud_cover);
+	//context.strokeStyle="#FF0096";
+	//plotData(temperature);
+	
+}
+
+function plotData5(dataSet) {
+	context.beginPath();
+	context.moveTo(0, dataSet[0]);
+	for (i=1;i<sections;i++) {
+		context.lineTo(i * xScale, dataSet[i]);
+	}
+	context.stroke();
+}
+</script>
+	<title>Prediction</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<meta name="keywords" content="Fashion Gaze a Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
+	Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+	 <link rel="stylesheet" href="animate.css">
+	<link rel="stylesheet" href="css/lightGallery.css" type="text/css" media="all" />
+	<link rel="stylesheet" type="text/css" href="css/component.css" />
+	<link href="prediction_css/bootstrap.min.css" rel="stylesheet" type="text/css" media="all" />
+	<script src="prediction_js/modernizr.custom.js"></script>
+	<link href="prediction_css/style.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="prediction_css/font-awesome.min.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+		<link href="css/solution.css" rel="stylesheet" type="text/css" media="all" />
+		<link href="css/contact.css" rel="stylesheet" type="text/css" media="all" />
+		<link href="css/font-awesome.css" rel="stylesheet">
+			<script type="text/javascript">
+			$(window).load(function(){
+			  $('.flexslider').flexslider({
+				animation: "slide",
+				start: function(slider){
+				  $('body').removeClass('loading');
+				}
+			  });
+			});
+		  </script>
+	</head>
+	<!-- Head -->
+	<body onload="loadData();myFunction();">
+	<div class="top_header" id="home">
+			<!-- Fixed navbar -->
+			<nav class="navbar navbar-default navbar-fixed-top">
+				<div class="nav_top_fx_w3ls_agileinfo">
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+						    aria-controls="navbar">
+	            <span class="sr-only">Toggle navigation</span>
+	            <span class="icon-bar"></span>
+	            <span class="icon-bar"></span>
+	            <span class="icon-bar"></span>
+	          </button>
+						<div class="logo-w3layouts-agileits">
+							<h1> <a class="navbar-brand" href="index.html"><i class="fa fa-clone" aria-hidden="true"></i> Drought <span class="desc">Prediction Center</span></a></h1>
+						</div>
+					</div>
+					<div id="navbar" class="navbar-collapse collapse">
+						<div class="nav_right_top">
+							<ul class="nav navbar-nav navbar-right">
+								<li ><a href="faq.html">FAQs</a></li>
+							 </ul>
+	                        <ul class="nav navbar-nav">
+	                            <li  class="active"><a href="index.html">Home</a></li>
+	                            <li ><a href="information.html">Information</a></li>
+							<li><a href="wildlife.html">Wildlife</a></li>
+									</ul>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<!--/.nav-collapse -->
+				</div>
+			</nav>
+		</div>
+<div id="map" style="width:100%;height:400px"></div>
+<script>
+function myMap() {
+  var Location = new google.maps.LatLng(32.84,76.068);
+
+  var mapCanvas = document.getElementById("map");
+  var mapOptions = {center: Location, zoom: 10};
+  var map = new google.maps.Map(mapCanvas,mapOptions);
+
+  var myCity = new google.maps.Circle({
+    center: Location,
+    radius: 10000,
+    strokeColor: "#0000FF",
+    strokeOpacity: 0.8,
+    strokeWeight: 2,
+    fillColor: "#0000FF",
+    fillOpacity: 0.4
+  });
+  myCity.setMap(map);
+}
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADmUtjHdks_Fqo7CXUUgxAQEE44YTEy-0&callback=myMap"></script>
+
+
+			 <br><br> 
+
+			<div class="container">
+				<div class="animated infinite flash">
+  <h1 style="text-align: center;font-size:80px;color:#ff3c41"><b>Drought Severity Index</b></h1>
+</div>
+<br>
+<div style="padding-top: 100px;">
+  <div style="width: 100%; position: absolute; margin-top: -62px;">
+    <span style="margin-left: 13.3%; position: absolute;font-size:25px;"><b>Normal</b><br>|</span>
+    <span style="margin-left: 26.6%; position: absolute;font-size:25px;"><b>Low</b><br>|</span>
+    <span style="margin-left: 39.9%; position: absolute;font-size:25px;"><b>Medium</b><br>|</span>
+    <span style="margin-left: 53.2%; position: absolute;font-size:25px;"><b>High</b><br>|</span>
+    <span style="margin-left: 67.2%; position: absolute;font-size:25px;"><b>Extreme</b><br>|</span>
+  </div>
+<div style="height:24px;width:100%;">
+<progress id="myProgress" value="0" max="100" style="width:100%;height:200%;">
+</progress>
+  </div>
+  </div>
+</div>
+</div>
+</div>
+<br><br><br>
+<div style="text-align: center;height:250%;">
+<a href="solution.html" class="button"><b>Solution</b></a></div>
+		<div class="top-brands" id="brands">
+			<div class="container">
+				<div class="top-brands-agile-head">
+				<h3>Factors</h3>
+				</div>
+				<div class="sliderfig brands-agile-grids">
+					<ul id="flexiselDemo1">			
+						<li>
+							<a href="#cd"><img src="prediction_images/brand1.jpg" alt=" " class="img-responsive" style="height:200px;margin: auto;" /></a><h3 style="text-align: center;">Rainfall</h3>
+						</li>
+						<li>
+							<a href="#cd1"><img src="prediction_images/Temp.jpg" alt=" " class="img-responsive" style="height:200px;width:220px;margin: auto;"/></a><h3 style="text-align: center;">Temperature</h3>
+						</li>
+						<li>
+							<a href="#cd2"><img src="prediction_images/cloud.jpg" alt=" " class="img-responsive" style="height:200px;width:220px;margin: auto;"/></a><h3 style="text-align: center;">Cloud Cover</h3>
+						</li>
+						<li>
+							<a href="#cd3"><img src="prediction_images/soil.jpg" alt=" " class="img-responsive" style="height:200px;margin: auto;"/></a><h3 style="text-align: center;">Soil Type</h3>
+						</li>
+						<li>
+							<a href="#cd4"><img src="prediction_images/canopy.jpg" alt=" " class="img-responsive" style="height:200px;margin: auto;"/></a><h3 style="text-align: center;">Canopy Cover</h3>
+						</li>
+						<li>
+							<a href="#cd5"><img src="prediction_images/evapo.png" alt=" " class="img-responsive" style="height:200px;margin: auto;"/></a><h3 style="text-align: center;">Evapotranspiration</h3>
+						</li>
+					</ul>
+				</div>
+				</div>
+		</div>
+		<br><br>
+		<div class="wrap">
+  <br>
+    <div class="content" >
+    	<div style="text-align:center;">
+    	<h1 id="cd">Rainfall</h1><br>
+       <h3>Predicted Rainfall:</h3><br><h4 id="demo" style="height:50px; color:#ff3c41"></h4>
+   </div>
+        <div align="center">
+<h4>Rainfall Pattern</h4>
+
+<canvas id="canvas" height="400" width="650">
+</canvas>
+<br>
+<span style="color:#FF0066"> Rainfall </span>  <br><br><br><br>
+</div>
+<div style="text-align:center;">
+<h1 id="cd1">Temperature</h1><br>
+        <h3>Predicted Temperature:</h3><br><h4 id="demo1" style="height:50px; color:#ff3c41"></h4>
+     </div>
+              <div align="center">
+<h2>Temperature Pattern</h2>
+
+<canvas id="canvas1" height="400" width="650">
+</canvas>
+<br>
+<span style="color:#FF0066"> Temperature </span><br><br>  <br><br>
+</div>
+<div style="text-align:center;">
+<h1 id="cd2">Cloud Cover</h1><br>
+<h3>Predicted Cloud Cover:</h3><br><h4 id="demo2" style="height:50px; color:#ff3c41"></h4>
+     </div>
+              <div align="center">
+<h2>Cloud Cover Pattern</h2>
+
+<canvas id="canvas2" height="400" width="650">
+</canvas>
+<br>
+<span style="color:#FF0066"> Cloud Cover </span>  <br><br><br><br>
+</div>
+<div style="text-align:center;">
+<h1 id="cd5">Evapotranspiration</h1><br>
+<h3>Predicted Evapotranspiration:</h3><br><h4 id="demo3" style="height:50px; color:#ff3c41"></h4>
+</div>
+              <div align="center">
+<h2>Evapotranspiration Pattern</h2>
+
+<canvas id="canvas3" height="400" width="650">
+</canvas>
+<br>
+<span style="color:#FF0066"> Evapotranspiration </span>  <br><br><br><br>
+</div>
+     </div>
+    </div> 
+		<script type="text/javascript" src="prediction_js/jquery-2.1.4.min.js"></script>
+		<script type="text/javascript" src="prediction_js/bootstrap.min.js"></script>
+		<script src="prediction_js/responsiveslides.min.js"></script>
+		<script>
+			$(function () {
+				$("#slider, #slider1").responsiveSlides({
+					auto: true,
+					nav: true,
+					speed: 1500,
+					namespace: "callbacks",
+					pager: true,
+				});
+			});
+		</script>
+	<script type="text/javascript">
+						$(window).load(function() {
+							$("#flexiselDemo1").flexisel({
+								visibleItems: 4,
+								animationSpeed: 1000,
+								autoPlay: true,
+								autoPlaySpeed: 3000,    		
+								pauseOnHover: true,
+								enableResponsiveBreakpoints: true,
+								responsiveBreakpoints: { 
+									portrait: { 
+										changePoint:480,
+										visibleItems: 1
+									}, 
+									landscape: { 
+										changePoint:640,
+										visibleItems:2
+									},
+									tablet: { 
+										changePoint:768,
+										visibleItems: 3
+									}
+								}
+							});
+							
+						});
+				</script>
+				<script type="text/javascript" src="prediction_js/jquery.flexisel.js"></script>
+	<script src="prediction_js/lightGallery.js"></script>
+		<script>
+	    	 $(document).ready(function() {
+				$("#lightGallery").lightGallery({
+					mode:"fade",
+					speed:800,
+					caption:true,
+					desc:true,
+					mobileSrc:true
+				});
+			});
+	    </script>
+		<script type="text/javascript" src="prediction_js/move-top.js"></script>
+		<script type="text/javascript" src="prediction_js/easing.js"></script>
+		<script type="text/javascript">
+			jQuery(document).ready(function($) {
+				$(".scroll").click(function(event){		
+					event.preventDefault();
+					$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+				});
+			});
+		</script>
+		<script type="text/javascript">
+			$(document).ready(function() {
+			/*
+				var defaults = {
+				containerID: 'toTop', // fading element id
+				containerHoverID: 'toTopHover', // fading element hover id
+				scrollSpeed: 1200,
+				easingType: 'linear' 
+				};
+			*/								
+			$().UItoTop({ easingType: 'easeOutQuart' });
+			});
+		</script>
+		<a href="#" id="toTop" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
+	<script>
+	var myVar;
+
+	function myFunction() {
+	    myVar = setTimeout(showPage);
+	}
+
+	function showPage() {
+	  document.getElementById("loader").style.display = "none";
+	  document.getElementById("myDiv").style.display = "block";
+	}
+	</script>
+	<script>
+	function loadData()
+	{
+		var values=localStorage.getItem('itemKey', 'values');
+		var obj = JSON.parse(values);
+		var a=obj.rainfall;
+		var b=obj.temp;
+		var c=obj.cc;
+		var d=obj.eva;
+		var e=obj.droughtP;
+		var month=obj.month;
+		inRain(obj.rainfall,month);
+		inRain1(obj.temp,month);
+		inRain2(obj.cc,month);
+		inRain3(obj.eva,month);
+		myDrought(e);
+		document.getElementById("demo").innerHTML = a[11]+ " mm";
+		document.getElementById("demo1").innerHTML = b[11]+" C";
+		document.getElementById("demo2").innerHTML = c[11]+ " %";
+		document.getElementById("demo3").innerHTML = d[11]+" mm/month";
+	}
+
+	function myDrought(DP) {
+    document.getElementById("myProgress").value = DP;
+}
+	</script>
+<script type="text/javascript">
+var citymap = {
+  GreatHimalayanNationalPark: {
+    center: {lat: 31.9995, lng: 77.8824},
+    //population: 2714856
+  },
+  
+};
+
+function initMap() {
+  // Create the map.
+  var map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 4,
+    center: {lat: 20.5937, lng: 78.9629},
+    mapTypeId: 'terrain'
+  });
+
+  // Construct the circle for each value in citymap.
+  // Note: We scale the area of the circle based on the population.
+  for (var city in citymap) {
+    // Add the circle for this city to the map.
+    var cityCircle = new google.maps.Circle({
+      strokeColor: '#FF0000',
+      strokeOpacity: 0.8,
+      strokeWeight: 2,
+      fillColor: '#FF0000',
+      fillOpacity: 0.35,
+      map: map,
+      center: citymap[city].center,
+      radius: 10000
+    });
+  }
+}
+</script>
+
+	</body>
+	</html>
+
